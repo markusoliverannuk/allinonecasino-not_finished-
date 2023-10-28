@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kunna - Online Gambling</title>
+    <link rel="stylesheet" href="static/styleForRoulettePage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function openDepositPopup() {
+          var depositPopup = document.getElementById("deposit-popup");
+          depositPopup.style.display = "block";
+        }
+      
+        function closeDepositPopup() {
+          var depositPopup = document.getElementById("deposit-popup");
+          depositPopup.style.display = "none";
+        }
+
+
+ 
+
+      </script>
+      
+</head>
+
+<body>
+<div class="header">
+    <nav>
+        <img src="/static/logo.png" alt="" class="headerlogo">
+        <ul class="nav-links">
+            
+            <li><a href="/homepage">CRASH</a></li>
+            <li><a href="/roulette">ROULETTE</a></li>
+            <li><a href="/coinflip">COINFLIP</a></li>
+            <li><a href="/coinfliplobby">LOBBY</a></li>
+            <li><a href="/coinflip">STATS</a></li>
+            <li><a href="/coinflip">WITHDRAW</a></li>
+            
+
+            
+            
+        </ul>
+        {{ if eq .CurrentUser.Role 1 }}
+        <div class="userInfo">
+            <div class="balance">
+                <div class="depositBtn">
+                <button class="button-deposit" role="button" onclick="openDepositPopup()">Deposit</button>
+                </div>
+                
+                <h2  id="user-balance">
+                   {{ .CurrentUser.Balance }}
+                </h2>
+                <img src="/static/pinkcoin.png" alt="" style="width:22px; height:22px;" class="coin">
+            </div>
+        <h2 style="margin:auto;">{{.CurrentUser.Name}}</h2>
+        </div>
+        {{ else }}
+        <a href="/loginpage"><button class="reg">LOG IN</button></a>
+        {{ end }}
+    </nav>
+    
+
+
+</div>
+<div id="deposit-popup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeDepositPopup()">&times;</span>
+      <h2>Deposit Funds</h2>
+      <p>Select a coin package:</p>
+  <br>
+  <form action="/coins20-form" method="POST" id="/coins20-form">
+    
+    <input type="submit" name="package" value="20" class="button-depositAmount">
+  </form>
+  
+  <form action="/coins50-form" method="POST" id="/coins50-form">
+    <input type="submit" name="package" value="50" class="button-depositAmount">
+  </form>
+  
+  <form action="/coins100-form" method="POST" id="/coins100-form">
+    <input type="submit" name="package" value="100" class="button-depositAmount">
+  </form>
+    </div>
+</div>
+  
+<div class="pageview">
+    <div class="left-nav">
+      <img src="/static/mastercard.png" alt="" style="height:100px; width: 100px;">
+      <img src="/static/visa.png" alt="" style="height:100px; width: 100px;">
+      <img src="/static/skill.png" alt="" style="height:100px; width: 100px;">
+      <img src="/static/paypal.png" alt="" style="height:100px; width: 100px;">
+      <img src="/static/bitcoin.png" alt="" style="height:100px; width: 100px;">
+    </div>
+    <div class="crash">
+        <div class="crashwindow">
+            <div id="tickerlevel"><img id="ticker" src="/static/rouletteticker.png" alt="" ></div>
+            
+            <div id="roulette-wheel">
+                
+            </div>
+        
+            <div id="countdown-timer">
+                <span id="countdown-display">Betting opened</span> 
+              </div>
+        </div>
+        <div class="winnerColors">
+        <center><div class="winnerColorsRow">
+            <img src="/static/purplewinner.png" alt="" class="winnerColor">
+            <img src="/static/blackwinner.png" alt="" class="winnerColor">
+            <img src="/static/purplewinner.png" alt="" class="winnerColor">
+            <img src="/static/blackwinner.png" alt="" class="winnerColor">
+            <img src="/static/greenwinner.png" alt="" class="winnerColor">
+            <img src="/static/blackwinner.png" alt="" class="winnerColor">
+            <img src="/static/blackwinner.png" alt="" class="winnerColor">
+            <img src="/static/blackwinner.png" alt="" class="winnerColor">
+            <img src="/static/purplewinner.png" alt="" class="winnerColor">
+            <img src="/static/purplewinner.png" alt="" class="winnerColor">
+        </div></center>
+    </div>
+        <div id="betAmount">
+           
+            <div id="betAmountWindow">
+                <div id="betAmountFull">
+                    <img src="/static/pinkcoin.png" alt="" style="width:22px; height:22px;" class="coin">
+                <input   type="number" type="text" id="bet-amount-input" name="bet-Amount" placeholder="10">
+               
+                <div class="betManipulation" style="margin-right: 2.5vw;">
+                    <button class="bet-amount-button" id="min-bet" data-value="1">MIN</button>
+                <button class="bet-amount-buttonmax" id="max-bet">MAX</button>
+                <button class="bet-amount-buttonhalf" id="half-bet">HALF</button>
+                 <button class="bet-amount-buttonquarter" id="quarter-bet">QUARTER</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="crashSettings">
+            <div class="crashSettingsLeftColumn">
+                <button class="button-placeBetBlack color-button" role="button" id="Black">2x</button>
+                
+
+            </div>
+            <div class="crashSettingsMiddleColumn">
+                <button class="button-placeBetGreen color-button" role="button" id="Green">17x</button>
+             
+                <button class="hidden spin-button1" role="button"  style="display: none;">17x</button>
+            </div>
+            <div class="crashSettingsRightColumn">
+                <button class="button-placeBet color-button" role="button" id="Purple">2x</button>
+               
+            </div>
+        </div>
+        
+    </div>
+    <div class="chat">
+    <div id ="chatbox">
+
+    </div>
+        <div id="typebox">
+            <h3 class="chatError">You must be logged in to chat</h3>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const spinButtons = document.querySelectorAll('.spin-button1');
+  const rouletteWheel = document.getElementById('roulette-wheel');
+  const countdownDisplay = document.getElementById('countdown-display');
+  const betForm = document.getElementById('bet-form');
+  let countdown;
+
+  spinButtons.forEach(spinButton => {
+    spinButton.addEventListener('click', () => {
+      clearInterval(countdown);
+      rouletteWheel.classList.add('spinning');
+
+      fetch('/spin')
+        .then(response => response.text())
+        .then(winningDegrees => {
+            
+            submitBet(winningDegrees);
+            
+          console.log('Winning Degrees:', winningDegrees);
+          
+          rouletteWheel.style.transition = 'transform 5s cubic-bezier(0.42, 0.5, 0.8, 1)';
+          rouletteWheel.style.transform = `rotate(${winningDegrees}deg)`;
+
+          setTimeout(() => {
+            rouletteWheel.style.transition = 'transform 0.00001s ease-in-out'; 
+            rouletteWheel.style.transform = 'rotate(0deg)';
+            removeSelectedClassFromButtons();
+          }, 7000); 
+
+          startCountdown(7);
+          
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  });
+
+  document.querySelectorAll('.color-button').forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('selected'));
+    
+      button.classList.add('selected');
+    });
+  });
+  function removeSelectedClassFromButtons() {
+  document.querySelectorAll('.color-button').forEach(button => {
+    button.classList.remove('selected');
+  });
+}
+document.addEventListener('DOMContentLoaded', () => {
+  
+  const betAmountInput = document.getElementById('bet-amount-input');
+
+
+  });
+  const betAmountInput = document.getElementById('bet-amount-input');
+  const currentBalance = parseFloat(document.getElementById('user-balance').textContent);
+  document.addEventListener('click', function (event) {
+    console.log('clicked')
+  if (event.target && event.target.classList.contains('bet-amount-button')) {
+    const buttonValue = event.target.dataset.value;
+    betAmountInput.value = buttonValue;
+  }
+  if (event.target && event.target.classList.contains('bet-amount-buttonmax')) {
+    const buttonValue = event.target.dataset.value;
+    betAmountInput.value = currentBalance;
+  }
+  if (event.target && event.target.classList.contains('bet-amount-buttonhalf')) {
+    const buttonValue = event.target.dataset.value;
+    betAmountInput.value = parseInt(currentBalance/2);
+  }
+  if (event.target && event.target.classList.contains('bet-amount-buttonquarter')) {
+    const buttonValue = event.target.dataset.value;
+    betAmountInput.value = parseInt(currentBalance/4);
+  }
+});
+function submitBet(winningDegrees) {
+    
+    const currentBalance = parseFloat(document.getElementById('user-balance').textContent);
+  const betAmount = document.getElementById("bet-amount-input").value;
+  const selectedColorElement = document.querySelector('.color-button.selected');
+  if (selectedColorElement && currentBalance >= betAmount) {
+    
+    const selectedColor = selectedColorElement.id;
+    const requestData = {
+      betAmount: betAmount,
+      selectedColor: selectedColor,
+      winningDegrees: parseFloat(winningDegrees),
+    };
+
+    makeBet(betAmount);
+    numberWinner = winningNumberFunc(winningDegrees);
+    colorWinner = winningColorFunc(numberWinner);
+
+    if (selectedColor === colorWinner) {
+      setTimeout(() => {
+        const currentBalance = parseFloat(document.getElementById('user-balance').textContent);
+        const newBalance = currentBalance + 2 * betAmount;
+        document.getElementById('user-balance').textContent = parseInt(newBalance);
+      }, 5000);
+    }
+
+
+    console.log(winningDegrees);
+
+    fetch("/submitBetAndWinning", { 
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+
+  } else {
+    console.error("Selected color element is null or not found.");
+  }
+}
+
+function makeBet(betAmount) {
+  
+
+
+  const currentBalance = parseFloat(document.getElementById('user-balance').textContent);
+  const newBalance = currentBalance - betAmount;
+  console.log('----')
+  console.log(currentBalance)
+  console.log(betAmount)
+  console.log('----')
+ 
+
+  console.log(newBalance)
+  
+  document.getElementById('user-balance').textContent = parseInt(newBalance);
+
+  
+  
+}
+function payoutWinnings(betAmount) {
+    const currentBalance = parseFloat(document.getElementById('user-balance').textContent);
+
+    
+    newBalance = currentBalance += 2*betAmount;
+  
+  document.getElementById('user-balance').textContent = parseInt(newBalance);
+  console.log('opopopopopo')
+  console.log(betAmount)
+}
+
+
+  function startCountdown(seconds) {
+    let remainingSeconds = seconds;
+    countdownDisplay.textContent = 'Betting for next round opens in ' + remainingSeconds + ' seconds';
+
+    countdown = setInterval(() => {
+      remainingSeconds--;
+      countdownDisplay.textContent = 'Betting for next round opens in ' + remainingSeconds + ' seconds';
+      if (remainingSeconds <= 0) {
+        clearInterval(countdown); 
+        countdownDisplay.textContent = 'Betting opened';
+      }
+    }, 1000);
+  }
+
+  
+  setInterval(() => {
+    spinButtons[0].click(); 
+  }, 10000);
+});
+function winningNumberFunc(number) {
+    const constant = 360.0 / 38.0;
+    number -= 1800;
+    let numberout = 0;
+
+    if (number > 0 && number <= constant) {
+        numberout = 2;
+    } else if (number > constant && number <= 2 * constant) {
+        numberout = 14;
+    } else if (number > 2 * constant && number <= 3 * constant) {
+        numberout = 35;
+    } else if (number > 3 * constant && number <= 4 * constant) {
+        numberout = 23;
+    } else if (number > 4 * constant && number <= 5 * constant) {
+        numberout = 4;
+    } else if (number > 5 * constant && number <= 6 * constant) {
+        numberout = 16;
+    } else if (number > 6 * constant && number <= 7 * constant) {
+        numberout = 33;
+    } else if (number > 7 * constant && number <= 8 * constant) {
+        numberout = 21;
+    } else if (number > 8 * constant && number <= 9 * constant) {
+        numberout = 6;
+    } else if (number > 9 * constant && number <= 10 * constant) {
+        numberout = 18;
+    } else if (number > 10 * constant && number <= 11 * constant) {
+        numberout = 31;
+    } else if (number > 11 * constant && number <= 12 * constant) {
+        numberout = 19;
+    } else if (number > 12 * constant && number <= 13 * constant) {
+        numberout = 8;
+    } else if (number > 13 * constant && number <= 14 * constant) {
+        numberout = 12;
+    } else if (number > 14 * constant && number <= 15 * constant) {
+        numberout = 29;
+    } else if (number > 15 * constant && number <= 16 * constant) {
+        numberout = 25;
+    } else if (number > 16 * constant && number <= 17 * constant) {
+        numberout = 10;
+    } else if (number > 17 * constant && number <= 18 * constant) {
+        numberout = 27;
+    } else if (number > 18 * constant && number <= 19 * constant) {
+        numberout = 0;
+    } else if (number > 19 * constant && number <= 20 * constant) {
+        numberout = 1;
+    } else if (number > 20 * constant && number <= 21 * constant) {
+        numberout = 13;
+    } else if (number > 21 * constant && number <= 22 * constant) {
+        numberout = 36;
+    } else if (number > 22 * constant && number <= 23 * constant) {
+        numberout = 24;
+    } else if (number > 23 * constant && number <= 24 * constant) {
+        numberout = 3;
+    } else if (number > 24 * constant && number <= 25 * constant) {
+        numberout = 15;
+    } else if (number > 25 * constant && number <= 26 * constant) {
+        numberout = 34;
+    } else if (number > 26 * constant && number <= 27 * constant) {
+        numberout = 22;
+    } else if (number > 27 * constant && number <= 28 * constant) {
+        numberout = 5;
+    } else if (number > 28 * constant && number <= 29 * constant) {
+        numberout = 17;
+    } else if (number > 29 * constant && number <= 30 * constant) {
+        numberout = 32;
+    } else if (number > 30 * constant && number <= 31 * constant) {
+        numberout = 20;
+    } else if (number > 31 * constant && number <= 32 * constant) {
+        numberout = 7;
+    } else if (number > 32 * constant && number <= 33 * constant) {
+        numberout = 11;
+    } else if (number > 33 * constant && number <= 34 * constant) {
+        numberout = 30;
+    } else if (number > 34 * constant && number <= 35 * constant) {
+        numberout = 26;
+    } else if (number > 35 * constant && number <= 36 * constant) {
+        numberout = 9;
+    } else if (number > 36 * constant && number <= 37 * constant) {
+        numberout = 28;
+    } else if (number > 37 * constant && number <= 38 * constant) {
+        numberout = 0;
+    }
+
+    return numberout;
+}
+function winningColorFunc(degree) {
+    let colorThatWon;
+
+    switch (degree) {
+        case 2:
+        case 35:
+        case 4:
+        case 33:
+        case 6:
+        case 31:
+        case 8:
+        case 29:
+        case 10:
+        case 13:
+        case 24:
+        case 15:
+        case 22:
+        case 17:
+        case 20:
+        case 11:
+        case 26:
+        case 28:
+            colorThatWon = "Black";
+            break;
+
+        case 14:
+        case 23:
+        case 16:
+        case 21:
+        case 18:
+        case 19:
+        case 12:
+        case 25:
+        case 27:
+        case 1:
+        case 36:
+        case 3:
+        case 34:
+        case 5:
+        case 32:
+        case 7:
+        case 30:
+        case 9:
+            colorThatWon = "Purple";
+            break;
+
+        default:
+            colorThatWon = "Unknown";
+            break;
+    }
+
+    return colorThatWon;
+}
+
+</script>
+<script>
+   
+</script>
+</body>
+
+</html>

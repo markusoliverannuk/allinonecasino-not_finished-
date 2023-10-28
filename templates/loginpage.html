@@ -1,0 +1,48 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cloud</title>
+    <link rel="stylesheet" href="static/styleForLoginPage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+   <div class="loginSquare">
+        
+        <div class="loginDetails">
+            
+            <a href="/homepage" title="Cloud">
+                <img class="header-image" src="static/logo.png" alt="Cloud" title="Cloud">
+            </a>
+
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="name">Username</label>
+                    <input type="text" id="loginField" name="name" pattern=".*\S+.*" placeholder="Username" autocomplete="off" minlength="3" maxlength="32" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="loginField" name="password" pattern=".*\S+.*" placeholder="Password" autocomplete="off" minlength="8" maxlength="32" required>
+                </div>
+
+                <div class="loginButton">
+                    <input type="submit" value="Log in" class="btn">
+                </div>
+            </form>
+
+            <div class="register">
+                <a href="register" class="link">Not yet a Cloud user?</a>
+            </div>
+
+            <div class="errorMessage">
+                
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

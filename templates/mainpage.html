@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Website</title>
+    <link rel="stylesheet" href="static/styleForHomepage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        
+        function openDepositPopup() {
+          var depositPopup = document.getElementById("deposit-popup");
+          depositPopup.style.display = "block";
+        }
+      
+       
+        function closeDepositPopup() {
+          var depositPopup = document.getElementById("deposit-popup");
+          depositPopup.style.display = "none";
+        }
+        
+  
+ 
+
+      </script>
+</head>
+
+<body>
+<div class="header">
+    <nav>
+        <img src="/static/logo.png" alt="" class="headerlogo">
+        <ul class="nav-links">
+            
+            <li><a href="">CRASH</a></li>
+            <li><a href="/roulette">ROULETTE</a></li>
+            <li><a href="/coinflip">COINFLIP</a></li>
+            <li><a href="/coinfliplobby">LOBBY</a></li>
+            
+
+            
+            
+        </ul>
+        {{ if eq .CurrentUser.Role 1 }}
+        <div class="userInfo">
+            <div class="balance">
+                <div class="depositBtn">
+                <button class="button-deposit" role="button" onclick="openDepositPopup()">Deposit</button>
+                </div>
+                <h2  id="user-balance">
+                   {{ .CurrentUser.Balance }}
+                </h2>
+                <img src="/static/pinkcoin.png" alt="" style="width:22px; height:22px;" class="coin">
+            </div>
+        <h2 style="margin:auto;">{{.CurrentUser.Name}}</h2>
+        </div>
+        {{ else }}
+        <a href="/loginpage"><button class="reg">LOG IN</button></a>
+        {{ end }}
+    </nav>
+    
+
+
+</div>
+<div id="deposit-popup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeDepositPopup()">&times;</span>
+      <h2>Deposit Funds</h2>
+      <p>Select a coin package:</p>
+  <br>
+  <form action="/coins20-form" method="POST" id="/coins20-form">
+    <input type="submit" name="package" value="20" class="button-depositAmount">
+  </form>
+  
+  <form action="/coins50-form" method="POST" id="/coins50-form">
+    <input type="submit" name="package" value="50" class="button-depositAmount">
+  </form>
+  
+  <form action="/coins100-form" method="POST" id="/coins100-form">
+    <input type="submit" name="package" value="100" class="button-depositAmount">
+  </form>
+    </div>
+</div>
+  
+<div class="pageview">
+    <div class="left-nav">
+        <img src="/static/dashboard.png" alt="">
+        <img src="/static/members.png" alt="">
+        <img src="/static/rewards.png" alt="">
+        <img src="/static/setting.png" alt="">
+        <img src="/static/messages.png" alt="">
+        <img src="/static/reports.png" alt="">
+ <a href="/logout"><img src="/static/logout.png" alt=""></a>
+    </div>
+    <div class="crash">
+        <div class="crashwindow">
+            <h1>2.51<span style="color:#5c305c;">x</span> </h1>
+        </div>
+        <div class="crashSettings">
+            <div class="crashSettingsLeftColumn">
+
+            </div>
+            <div class="crashSettingsMiddleColumn">
+                <div class="form-group">
+                    <span>Amount:</span>
+                    <input class="form-field" type="text" placeholder="10">
+                </div>
+                <div class="form-group">
+                    <span>TP:</span>
+                    <input class="form-field" type="text" placeholder="2.5">
+                </div>
+
+<button class="button-placeBet" role="button">Place bet</button>
+            </div>
+            <div class="crashSettingsRightColumn">
+
+            </div>
+        </div>
+        <div class ="crashHistory">
+            <h3>1.82x</h3>
+            <h3>2.02x</h3>
+            <h3>3.98x</h3>
+            <h3>1.04x</h3>
+            <h3>1.22x</h3>
+            <h3>4.08x</h3>
+            <h3>1.82x</h3>
+            <h3>2.02x</h3>
+            <h3>3.98x</h3>
+            <h3>1.04x</h3>
+          
+            
+        </div>
+    </div>
+    <div class="chat">
+
+    </div>
+</div>
+</body>
+
+</html>

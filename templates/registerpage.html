@@ -1,0 +1,51 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>Cloud</title>
+    <link rel="stylesheet" href="static/styleForLoginPage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <div class="loginSquare">
+
+        <div class="loginDetails">
+
+            <a href="/homepage" title="Cloud">
+                <img class="header-image" src="static/cloudLogo.png" alt="Cloud" title="Cloud">
+            </a>
+
+            <form action="/insertRegisterData" method="post">
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="loginField" pattern=".*\S+.*" name="email" placeholder="Email" autocomplete="off" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="name">Username</label>
+                    <input type="text" id ="loginField" name="name" placeholder="Username" pattern=".*\S+.*" autocomplete="off" minlength="3" maxlength="32" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="loginField" name="password" placeholder="Password" pattern=".*\S+.*" autocomplete="off" minlength="8" maxlength="32" required>
+                </div>
+                    <input type="submit" value="Register now" class="btn">
+            </form>
+
+        </div>
+
+        <div class="register">
+            <a href="/loginpage" class="link">Already a Cloud user?</a>
+        </div>
+
+        <div class="errorMessage">
+            <h3>{{ . }}</h3>
+        </div>
+    </div>
+
+</body>
+</html>

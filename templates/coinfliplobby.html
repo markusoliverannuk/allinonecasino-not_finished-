@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Website</title>
+    
+    <link rel="stylesheet" href="static/styleForCoinflipLobby.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Function to open the deposit popup
+        function openDepositPopup() {
+          var depositPopup = document.getElementById("deposit-popup");
+          depositPopup.style.display = "block";
+        }
+      
+        // Function to close the deposit popup
+        function closeDepositPopup() {
+          var depositPopup = document.getElementById("deposit-popup");
+          depositPopup.style.display = "none";
+        }
+          function purchaseCoins(coins) {
+    var userBalanceElement = document.getElementById("user-balance");
+
+    var balance = parseFloat(userBalanceElement.textContent);
+
+    // Add the selected amount of coins to the balance
+    balance += coins;
+
+    // Update the displayed balance
+    userBalanceElement.textContent = balance.toFixed(2);
+
+    // Optional: You can send this information to your server for tracking or further processing.
+
+    // Close the popup after the action is complete.
+    closeDepositPopup();
+  }
+
+      </script>
+</head>
+
+<body>
+<div class="header">
+    <nav>
+        <img src="/static/logo.png" alt="" class="headerlogo">
+        <ul class="nav-links">
+            
+            <li><a href="/homepage">CRASH</a></li>
+            <li><a href="/roulette">ROULETTE</a></li>
+            <li><a href="/coinflip">COINFLIP</a></li>
+            <li><a href="/coinfliplobby">LOBBY</a></li>
+            <li><a href="/coinflip">STATS</a></li>
+            <li><a href="/coinflip">WITHDRAW</a></li>
+            
+
+            
+            
+        </ul>
+        {{ if eq .CurrentUser.Role 1 }}
+        <div class="userInfo">
+            <div class="balance">
+                <div class="depositBtn">
+                    <button class="button-deposit" role="button" onclick="openDepositPopup()">Deposit</button>                </div>
+                <h2  id="user-balance">
+                   {{ .CurrentUser.Balance }}
+                </h2>
+                <img src="/static/pinkcoin.png" alt="" style="width:22px; height:22px;" class="coin">
+            </div>
+        <h2 style="margin:auto;">{{.CurrentUser.Name}}</h2>
+        </div>
+        {{ else }}
+        <a href="/loginpage"><button class="reg">LOG IN</button></a>
+        {{ end }}
+    </nav>
+    
+
+
+</div>
+<div id="deposit-popup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeDepositPopup()">&times;</span>
+      <h2>Deposit Funds</h2>
+      <p>Select a coin package:</p>
+  <br>
+  <form action="/coins20-form" method="POST" id="/coins20-form">
+    <input type="submit" name="package" value="20" class="button-depositAmount">
+  </form>
+  
+  <form action="/coins50-form" method="POST" id="/coins50-form">
+    <input type="submit" name="package" value="50" class="button-depositAmount">
+  </form>
+  
+  <form action="/coins100-form" method="POST" id="/coins100-form">
+    <input type="submit" name="package" value="100" class="button-depositAmount">
+  </form>
+    </div>
+</div>
+  
+<div class="pageview">
+    <div class="left-nav">
+        <img src="/static/mastercard.png" alt="" style="height:100px; width: 100px;">
+        <img src="/static/visa.png" alt="" style="height:100px; width: 100px;">
+        <img src="/static/skill.png" alt="" style="height:100px; width: 100px;">
+        <img src="/static/paypal.png" alt="" style="height:100px; width: 100px;">
+        <img src="/static/bitcoin.png" alt="" style="height:100px; width: 100px;">
+      </div>
+      <div class="crash">
+        <div class="lobbyWindow">
+            <div class="createLobby">
+
+            </div>
+            <div class="openLobbies">
+                <div class="lobbyTemplate">
+                    <div class="lobbyOwnerSide">
+                        <div class="lobbyOwnerSideInfo">
+                            <div class="nameAndBetSize">
+                            <h3>markusoliver</h3><br>
+                            <h4>122.44€</h4>
+                        </div>
+                        </div>
+                        <div class="sideAndOdds">
+                        <img src="/static/coinflipcoinpurple.png" alt="" class="profilePictureCoinflip">
+                            <h3>50.08%</h3>
+                    </div>
+                    </div>
+                    <div class="lobbyJoinSide">
+                        <div class="sideAndOdds">
+                            <img src="/static/coinflipcoinblack.png" alt="" class="profilePictureCoinflip">
+                                <h3>49.92%</h3>
+                        </div>
+                        <div class="lobbyJoinSideInfo">
+                            <div class="nameAndBetSize">
+                            <h3>ichynator</h3>
+                            <br>
+                            <h4>122.31€</h4>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="lobbyTemplate">
+                    <div class="lobbyOwnerSide">
+                        <div class="lobbyOwnerSideInfo">
+                            <div class="nameAndBetSize">
+                            <h3>markusoliver</h3><br>
+                            <h4>122.44€</h4>
+                        </div>
+                        </div>
+                        <div class="sideAndOdds">
+                        <img src="/static/coinflipcoinpurple.png" alt="" class="profilePictureCoinflip">
+                            <h3>50.08%</h3>
+                    </div>
+                    </div>
+                    <div class="lobbyJoinSide">
+                        <div class="sideAndOdds">
+                            <img src="/static/coinflipcoinblack.png" alt="" class="profilePictureCoinflip">
+                                <h3>49.92%</h3>
+                        </div>
+                        <div class="lobbyJoinSideInfo">
+                            <div class="nameAndBetSize">
+                            <h3>ichynator</h3>
+                            <br>
+                            <h4>122.31€</h4>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="lobbyTemplate">
+                    <div class="lobbyOwnerSide">
+                        <div class="lobbyOwnerSideInfo">
+                            <div class="nameAndBetSize">
+                            <h3>markusoliver</h3><br>
+                            <h4>122.44€</h4>
+                        </div>
+                        </div>
+                        <div class="sideAndOdds">
+                        <img src="/static/coinflipcoinblack.png" alt="" class="profilePictureCoinflip">
+                            <h3>?</h3>
+                    </div>
+                    </div>
+                    <div class="lobbyJoinSide">
+                        <div class="sideAndOdds">
+                            <img src="/static/coinflipcoinpurple.png" alt="" class="profilePictureCoinflip">
+                                <h3>?</h3>
+                        </div>
+                        <div class="lobbyJoinSideInfo">
+                            <div class="nameAndBetSize">
+                            <h2 style="color: grey;">JOIN</h2>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+           
+        
+            
+        </div>
+        
+        <div id="betAmount">
+           
+           
+        </div>
+        <!--
+        <div class="crashSettings">
+            <div class="crashSettingsLeftColumn">
+                <img src="/static/coinflipcoinpurple.png" alt="" class="profilePictureCoinflip">
+                <h3 style="color: #d1c3de;">{{.CurrentUser.Name}}</h3>
+                <br>
+                <h4 style="color: #887c92;">122.46€</h4>
+                <button class="button-placeBetBlack color-button" role="button" id="Black">READY</button>
+                
+                
+
+            </div>
+            <div class="crashSettingsMiddleColumn">
+               <h1 style="color: #a08a8a;" id="vs">VS</h1>
+             
+                <button class="hidden spin-button1" role="button"  style="display: none;">17x</button>
+            </div>
+            <div class="crashSettingsRightColumn">
+                <img src="/static/coinflipcoinpurple.png" alt="" class="profilePictureCoinflip">
+                <h3 style="color: #d1c3de;">toomas kasepuu</h3>
+                <br>
+                <h4 style="color: #887c92;">122.46€</h4>
+                <button class="button-placeBet color-button" role="button" id="Purple">READY</button>
+                
+            </div>
+        </div>-->
+        
+    </div>
+    
+    <div class="chat">
+        <div id ="chatbox">
+    
+        </div>
+            <div id="typebox">
+                <h3 class="chatError">You must be logged in to chat</h3>
+            </div>
+        </div>
+</div>
+
+</body>
+
+</html>
